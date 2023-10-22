@@ -106,6 +106,7 @@ namespace Recolor
             }
             openFileDialog.Reset();
             loadAllItems();
+            itemEdit();
             itemLoad();
             foreach (Item item in selectedItems)
             {
@@ -124,8 +125,9 @@ namespace Recolor
                 string savePath = config.pathToSave + pathLast;
                 if (allCheckBoxItems.Contains(item))
                 {
-                    allItems.Add(new Item { name = item, itempath = path, savepath = savePath });
-                    selectedItems.Add(new Item { name = item, itempath = path, savepath = savePath });
+                
+                        allItems.Add(new Item { name = item, itempath = path, savepath = savePath });
+                        selectedItems.Add(new Item { name = item, itempath = path, savepath = savePath });
                 }
             }
         }
@@ -157,6 +159,7 @@ namespace Recolor
 
                     if(selectedItems.Contains(item))
                     {
+                        MessageBox.Show("recolor");
                         recoloredImage = recolor.RecolorItem(item.savepath, config.red, config.green, config.blue, config.isBrownColorFilterOn);
                     }
                     else
@@ -167,6 +170,7 @@ namespace Recolor
 
                     if (recoloredImage != null)
                     {
+                        MessageBox.Show(recoloredFolder + getPathOfItem(item.name));
                         SaveBitmapImageAsPng(recoloredImage, recoloredFolder + getPathOfItem(item.name)); 
                     }
                 }
@@ -190,6 +194,7 @@ namespace Recolor
         }
         private string getPathOfItem(string item)
         {
+            
             string toTextures = "\\assets\\minecraft\\textures";
             string toItems = "\\items\\";
             string toBlocks = "\\blocks\\";

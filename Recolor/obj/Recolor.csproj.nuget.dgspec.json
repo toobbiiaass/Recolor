@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Privat\\coding\\RecolorTool\\Recolor\\Recolor.csproj": {}
+    "C:\\Privat\\coding\\C#\\Recolor\\Recolor\\Recolor.csproj": {}
   },
   "projects": {
-    "C:\\Privat\\coding\\RecolorTool\\Recolor\\Recolor.csproj": {
+    "C:\\Privat\\coding\\C#\\Recolor\\Recolor\\Recolor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Privat\\coding\\RecolorTool\\Recolor\\Recolor.csproj",
+        "projectUniqueName": "C:\\Privat\\coding\\C#\\Recolor\\Recolor\\Recolor.csproj",
         "projectName": "Recolor",
-        "projectPath": "C:\\Privat\\coding\\RecolorTool\\Recolor\\Recolor.csproj",
+        "projectPath": "C:\\Privat\\coding\\C#\\Recolor\\Recolor\\Recolor.csproj",
         "packagesPath": "C:\\Users\\tobia\\.nuget\\packages\\",
-        "outputPath": "C:\\Privat\\coding\\RecolorTool\\Recolor\\obj\\",
+        "outputPath": "C:\\Privat\\coding\\C#\\Recolor\\Recolor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\tobia\\AppData\\Roaming\\NuGet\\NuGet.Config",
