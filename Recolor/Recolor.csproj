@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="tempy\**" />
+    <EmbeddedResource Remove="tempy\**" />
+    <None Remove="tempy\**" />
+    <Page Remove="tempy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="System\Windows\" />
+  </ItemGroup>
+
+</Project>
