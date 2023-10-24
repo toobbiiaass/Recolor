@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1079*"/>
         </Grid.ColumnDefinitions>
         <Button Content="Open Pack Folder"  HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top" Height="25" Width="112" Grid.ColumnSpan="2" Click="Button_Click_OpenFolder"/>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" Width="144" Height="25" >
+        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" Width="144" Height="25" SelectionChanged="ComboBox_SelectionChanged" >
             
             <ComboBoxItem Content="1.8" ></ComboBoxItem>
             <ComboBoxItem Content="1.20" ></ComboBoxItem>

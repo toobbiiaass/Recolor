@@ -30,7 +30,7 @@ namespace Recolor
             string[] strings = File.ReadAllLines(System.IO.Path.Combine("items.csv"));
             foreach (string s in strings)
             {
-                if (!s.Contains("1.8;isToReduce"))
+                if (!s.Contains("item;isToReduce;folder1.8;folder1.20"))
                 {
                     string[] splitted = s.Split(';');
                     var checkY = new CheckBox
@@ -40,7 +40,9 @@ namespace Recolor
                         IsChecked = true
 
                     };
-                    toReduce.Add(new Item { name = splitted[0], isToReduce = bool.Parse(splitted[1]) });
+                    // 1      2          3        4
+                    //item;isToReduce;folder1.8;folder1.20 
+                    toReduce.Add(new Item { name = splitted[0], isToReduce = bool.Parse(splitted[1]), itempath= splitted[2], savepath = splitted[3] }); 
 
                     checkY.Checked += ChkClazz_OnCheckChanged;
                     checkY.Unchecked += ChkClazz_OnCheckChanged;
@@ -130,7 +132,10 @@ namespace Recolor
 
         private void Button_Click_OpenFolder(object sender, RoutedEventArgs e)
         {
-
+            if(config.version == "-1")
+            {
+                MessageBox.Show("Please select one version!"); return;
+            }
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "ZIP-Dateien (*.zip)|*.zip";
 
@@ -339,9 +344,12 @@ namespace Recolor
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            // version
-            MessageBox.Show("sol");
+            ComboBox comboBox = (ComboBox)sender; 
+
+            if (comboBox.SelectedItem != null)
+            {
+                config.version = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString()!;
+            }
         }
     }
 
