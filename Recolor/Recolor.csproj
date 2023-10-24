@@ -19,4 +19,10 @@
     <Folder Include="System\Windows\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="items.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

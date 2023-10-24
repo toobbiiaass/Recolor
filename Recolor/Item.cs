@@ -12,6 +12,8 @@ namespace Recolor
         public string itempath { get; set; } = "";
         public string savepath { get; set; } = "";
         public bool isToRecolor { get; set; } = true;
+
+        public bool isToReduce { get; set; } = false;
         public override string ToString()
         {
             return name;

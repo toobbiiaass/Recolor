@@ -14,13 +14,11 @@ namespace Recolor
 {
     public partial class MainWindow : Window
     {
-        string[] allCheckBoxItems = new string[] { "diamond_sword.png", "diamond_hoe.png", "diamond_axe.png", "diamond_chestplate.png"
-            , "diamond_leggings.png", "diamond_boots.png", "diamond_helmet.png", "diamond_pickaxe.png", "diamond_shovel.png", "fishing_rod_cast.png", "fishing_rod_uncast.png"
-        ,"ender_pearl.png", "diamond_ore.png", "diamond_block.png","diamond_layer_1.png","diamond_layer_2.png","awd"};
+        List<Item> toReduce = new();
 
         Config config = new Config();
         List<Item> selectedItems = new List<Item>();
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,28 +27,36 @@ namespace Recolor
         }
         public void createCheckBoxes()
         {
-            for (int i = 0; i < allCheckBoxItems.Length; i++)
+            string[] strings = File.ReadAllLines(System.IO.Path.Combine("items.csv"));
+            foreach (string s in strings)
             {
-                var checkY = new CheckBox
+                if (!s.Contains("1.8;isToReduce"))
                 {
-                    
-                    Content =  allCheckBoxItems[i],
-                    IsChecked = true
+                    string[] splitted = s.Split(';');
+                    var checkY = new CheckBox
+                    {
 
-                };
-                checkY.Checked += ChkClazz_OnCheckChanged;
-                checkY.Unchecked += ChkClazz_OnCheckChanged;
-                lst_View_ItemsSelect.Items.Add(checkY);
-                config.whichCheckboxesOn.Add(allCheckBoxItems[i]);
+                        Content = splitted[0],
+                        IsChecked = true
+
+                    };
+                    toReduce.Add(new Item { name = splitted[0], isToReduce = bool.Parse(splitted[1]) });
+
+                    checkY.Checked += ChkClazz_OnCheckChanged;
+                    checkY.Unchecked += ChkClazz_OnCheckChanged;
+                    lst_View_ItemsSelect.Items.Add(checkY);
+                    config.whichCheckboxesOn.Add(splitted[0]);
+                }
+               
             }
 
         }
         private void checkCheckBoxes()
         {
             lst_View_ItemsSelect.Items.Clear();
-            foreach(var itemName in selectedItems)
+            foreach (var itemName in selectedItems)
             {
-                if(File.Exists(itemName.savepath))
+                if (File.Exists(itemName.savepath))
                 {
                     var checkY = new CheckBox
                     {
@@ -63,7 +69,7 @@ namespace Recolor
                     checkY.Unchecked += ChkClazz_OnCheckChanged;
                     lst_View_ItemsSelect.Items.Add(checkY);
                 }
-               
+
             }
 
         }
@@ -90,7 +96,6 @@ namespace Recolor
                     }
                 }
             }
-           // itemEdit();
             itemLoad();
 
 
@@ -98,9 +103,9 @@ namespace Recolor
         private void editSelectedItems(String itemName, bool isRecolor)
         {
             List<Item> copyList = selectedItems.ToList();
-           foreach(var item in copyList)
+            foreach (var item in copyList)
             {
-                if(item.name == itemName)
+                if (item.name == itemName)
                 {
                     if (isRecolor)
                     {
@@ -140,13 +145,12 @@ namespace Recolor
                 }
                 int random = new System.Random().Next(0, 1000);
 
-                config.pathToRecolor = path +  random + "_PackToRecolor";
+                config.pathToRecolor = path + random + "_PackToRecolor";
                 config.pathToSave = path + "save\\" + random + "_PackRecolored";
                 ZipFile.ExtractToDirectory(selectedZipFilePath, config.pathToRecolor);
                 ZipFile.ExtractToDirectory(selectedZipFilePath, config.pathToSave);
                 loadAllItems();
                 checkCheckBoxes();
-                //itemEdit();
                 itemLoad();
                 foreach (Item item in selectedItems)
                 {
@@ -156,7 +160,7 @@ namespace Recolor
                     }
                 }
             }
-            
+
         }
         private void loadAllItems()
         {
@@ -165,11 +169,12 @@ namespace Recolor
                 string pathLast = getPathOfItem(item);
                 string path = config.pathToRecolor + pathLast;
                 string savePath = config.pathToSave + pathLast;
-                if (allCheckBoxItems.Contains(item))
+                foreach(var checkItem in toReduce)
                 {
-                
-                       // allItems.Add(new Item { name = item, itempath = path, savepath = savePath });
-                        selectedItems.Add(new Item { name = item, itempath = path, savepath = savePath, isToRecolor=true});
+                    if(checkItem.name == item)
+                    {
+                        selectedItems.Add(new Item { name = item, itempath = path, savepath = savePath, isToRecolor = true }); break;
+                    }
                 }
             }
         }
@@ -199,7 +204,7 @@ namespace Recolor
                 {
                     BitmapImage recoloredImage = null;
 
-                    if(item.isToRecolor)
+                    if (item.isToRecolor)
                     {
                         recoloredImage = recolor.RecolorItem(item.savepath, config.red, config.green, config.blue, config.isBrownColorFilterOn);
                     }
@@ -207,12 +212,11 @@ namespace Recolor
                     {
                         recoloredImage = new BitmapImage(new Uri(item.savepath));
                     }
-                   
+
 
                     if (recoloredImage != null)
                     {
-                        MessageBox.Show(recoloredFolder + getPathOfItem(item.name));
-                        SaveBitmapImageAsPng(recoloredImage, recoloredFolder + getPathOfItem(item.name)); 
+                        SaveBitmapImageAsPng(recoloredImage, recoloredFolder + getPathOfItem(item.name));
                     }
                 }
             }
@@ -235,7 +239,7 @@ namespace Recolor
         }
         private string getPathOfItem(string item)
         {
-            
+
             string toTextures = "\\assets\\minecraft\\textures";
             string toItems = "\\items\\";
             string toBlocks = "\\blocks\\";
@@ -259,30 +263,30 @@ namespace Recolor
         private void itemEdit()
         {
             selectedItems.Clear();
-            foreach( var item in allCheckBoxItems )
+            foreach (var item in toReduce)
             {
-                if (config.whichCheckboxesOn.Contains(item))
+                if (config.whichCheckboxesOn.Contains(item.name))
                 {
-                    foreach(var allItems in selectedItems)
+                    foreach (var allItems in selectedItems)
                     {
-                        if(allItems.name == item)
+                        if (allItems.name == item.name)
                         {
                             selectedItems.Add(allItems); break;
                         }
                     }
                 }
             }
-           
+
         }
         private void itemLoad()
         {
 
-          lv_defaultItems.Items.Clear();
+            lv_defaultItems.Items.Clear();
             foreach (var item in selectedItems)
             {
                 if (File.Exists(item.savepath))
                 {
-                    if(item.isToRecolor)
+                    if (item.isToRecolor)
                     {
                         var image = new BitmapImage();
                         image.BeginInit();
@@ -309,7 +313,7 @@ namespace Recolor
             {
                 if (File.Exists(item.savepath))
                 {
-                    if(item.isToRecolor)
+                    if (item.isToRecolor)
                     {
                         RecolorMake recolor = new RecolorMake();
                         var image = recolor.RecolorItem(item.savepath, config.red, config.green, config.blue, config.isBrownColorFilterOn);
@@ -331,6 +335,13 @@ namespace Recolor
         private void Button_Click_RecolorExample(object sender, RoutedEventArgs e)
         {
             itemRecolorLoad();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            // version
+            MessageBox.Show("sol");
         }
     }
 
