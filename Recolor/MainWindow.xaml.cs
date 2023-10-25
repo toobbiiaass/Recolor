@@ -42,7 +42,7 @@ namespace Recolor
                     };
                     // 1      2          3        4
                     //item;isToReduce;folder1.8;folder1.20 
-                    toReduce.Add(new Item { name = splitted[0], isToReduce = bool.Parse(splitted[1]), itempath= splitted[2], savepath = splitted[3] }); 
+                    toReduce.Add(new Item { name = splitted[0], isToReduce = bool.Parse(splitted[1]), folder18= splitted[2], folder120 = splitted[3] }); 
 
                     checkY.Checked += ChkClazz_OnCheckChanged;
                     checkY.Unchecked += ChkClazz_OnCheckChanged;
@@ -58,7 +58,8 @@ namespace Recolor
             lst_View_ItemsSelect.Items.Clear();
             foreach (var itemName in selectedItems)
             {
-                if (File.Exists(itemName.savepath))
+                string folderToPick = getFolder(itemName);
+                if (File.Exists(config.pathToSave+folderToPick))
                 {
                     var checkY = new CheckBox
                     {
@@ -111,12 +112,12 @@ namespace Recolor
                 {
                     if (isRecolor)
                     {
-                        selectedItems.Add(new Item { name = item.name, itempath = item.itempath, savepath = item.savepath, isToRecolor = true });
+                        selectedItems.Add(new Item { name = item.name, isToRecolor = true, folder120 = item.folder120, folder18 = item.folder18 });
                         selectedItems.Remove(item);
                     }
                     else
                     {
-                        selectedItems.Add(new Item { name = item.name, itempath = item.itempath, savepath = item.savepath, isToRecolor = false });
+                        selectedItems.Add(new Item { name = item.name, folder120 = item.folder120, folder18 = item.folder18, isToRecolor = false });
                         selectedItems.Remove(item);
                     }
                 }
@@ -159,9 +160,10 @@ namespace Recolor
                 itemLoad();
                 foreach (Item item in selectedItems)
                 {
-                    if (File.Exists(item.itempath))
+                    string folderToPick = getFolder(item);
+                    if (File.Exists(config.pathToRecolor+folderToPick))
                     {
-                        File.Delete(item.itempath);
+                        File.Delete(config.pathToRecolor + folderToPick);
                     }
                 }
             }
@@ -171,14 +173,19 @@ namespace Recolor
         {
             foreach (var item in config.whichCheckboxesOn)
             {
-                string pathLast = getPathOfItem(item);
-                string path = config.pathToRecolor + pathLast;
-                string savePath = config.pathToSave + pathLast;
                 foreach(var checkItem in toReduce)
                 {
                     if(checkItem.name == item)
                     {
-                        selectedItems.Add(new Item { name = item, itempath = path, savepath = savePath, isToRecolor = true }); break;
+                        foreach(var checkItemToReduce in toReduce)
+                        {
+                            if(checkItemToReduce.name == item)
+                            {
+                                selectedItems.Add(new Item { name = item, isToRecolor = true, folder120 = checkItemToReduce.folder120
+                                , folder18 = checkItemToReduce.folder18, isToReduce = checkItemToReduce.isToReduce}); break;
+                            }
+                        }
+                       
                     }
                 }
             }
@@ -205,23 +212,26 @@ namespace Recolor
 
             foreach (var item in selectedItems)
             {
-                if (File.Exists(item.savepath))
+                string folderToPick = getFolder(item);
+                if (File.Exists(config.pathToSave+folderToPick))
                 {
                     BitmapImage recoloredImage = null;
-
                     if (item.isToRecolor)
-                    {
-                        recoloredImage = recolor.RecolorItem(item.savepath, config.red, config.green, config.blue, config.isBrownColorFilterOn);
+                    {  
+                          recoloredImage = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn);
+                       
                     }
                     else
                     {
-                        recoloredImage = new BitmapImage(new Uri(item.savepath));
+                        recoloredImage = new BitmapImage(new Uri(config.pathToSave + folderToPick));
+                        
                     }
 
 
                     if (recoloredImage != null)
                     {
-                        SaveBitmapImageAsPng(recoloredImage, recoloredFolder + getPathOfItem(item.name));
+                       
+                     SaveBitmapImageAsPng(recoloredImage, recoloredFolder + folderToPick);
                     }
                 }
             }
@@ -242,60 +252,20 @@ namespace Recolor
             }
 
         }
-        private string getPathOfItem(string item)
-        {
-
-            string toTextures = "\\assets\\minecraft\\textures";
-            string toItems = "\\items\\";
-            string toBlocks = "\\blocks\\";
-            string toModels = "\\models\\armor\\";
-            string toUse = "";
-
-            if (item.Contains("ore.png") || item.Contains("block"))
-            {
-                toUse = toBlocks;
-            }
-            else if (item.Contains("layer"))
-            {
-                toUse = toModels;
-            }
-            else
-            {
-                toUse = toItems;
-            }
-            return toTextures + toUse + item;
-        }
-        private void itemEdit()
-        {
-            selectedItems.Clear();
-            foreach (var item in toReduce)
-            {
-                if (config.whichCheckboxesOn.Contains(item.name))
-                {
-                    foreach (var allItems in selectedItems)
-                    {
-                        if (allItems.name == item.name)
-                        {
-                            selectedItems.Add(allItems); break;
-                        }
-                    }
-                }
-            }
-
-        }
         private void itemLoad()
         {
 
             lv_defaultItems.Items.Clear();
             foreach (var item in selectedItems)
             {
-                if (File.Exists(item.savepath))
+                string folderToPick = getFolder(item);
+                if (File.Exists(config.pathToSave + folderToPick))
                 {
                     if (item.isToRecolor)
                     {
                         var image = new BitmapImage();
                         image.BeginInit();
-                        image.UriSource = new Uri(item.savepath, UriKind.Relative);
+                        image.UriSource = new Uri(config.pathToSave + folderToPick, UriKind.Relative);
                         image.CacheOption = BitmapCacheOption.OnLoad;
                         image.EndInit();
                         var imageToAdd = new Image
@@ -316,12 +286,13 @@ namespace Recolor
             lv_editedItems.Items.Clear();
             foreach (var item in selectedItems)
             {
-                if (File.Exists(item.savepath))
+                string folderToPick = getFolder(item);
+                if (File.Exists(config.pathToSave + folderToPick))
                 {
                     if (item.isToRecolor)
                     {
                         RecolorMake recolor = new RecolorMake();
-                        var image = recolor.RecolorItem(item.savepath, config.red, config.green, config.blue, config.isBrownColorFilterOn);
+                        var image = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn);
                         if (image == null) break;
                         var imageToAdd = new Image
                         {
@@ -350,6 +321,19 @@ namespace Recolor
             {
                 config.version = ((ComboBoxItem)comboBox.SelectedItem).Content.ToString()!;
             }
+        }
+        private string getFolder(Item item)
+        {
+            string folderToPick = "";
+            if (config.version == "1.8")
+            {
+                folderToPick = "\\" + item.folder18 + "\\" + item.name;
+            }
+            else //1.20
+            {
+                folderToPick = "\\" + item.folder120 + "\\" + item.name;
+            }
+            return folderToPick;
         }
     }
 
