@@ -271,8 +271,8 @@ namespace Recolor
                         var imageToAdd = new Image
                         {
                             Source = image,
-                            Width = 60,
-                            Height = 60
+                            Width = 100,
+                            Height = 100
 
                         };
                         lv_defaultItems.Items.Add(imageToAdd);
@@ -297,8 +297,8 @@ namespace Recolor
                         var imageToAdd = new Image
                         {
                             Source = image,
-                            Width = 60,
-                            Height = 60
+                            Width = 100,
+                            Height = 100
 
                         };
 

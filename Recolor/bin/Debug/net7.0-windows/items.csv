@@ -15,3 +15,9 @@ diamond_ore.png;false;assets\minecraft\textures\blocks;assets\minecraft\textures
 diamond_block.png;false;assets\minecraft\textures\blocks;assets\minecraft\textures\block
 diamond_layer_1.png;false;assets\minecraft\textures\models\armor;assets\minecraft\textures\models\armor
 diamond_layer_2.png;false;assets\minecraft\textures\models\armor;assets\minecraft\textures\models\armor
+cloud1.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0
+cloud2.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0
+cloud3.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0
+starfield01.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0
+starfield02.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0
+starfield03.png;false;assets\minecraft\mcpatcher\sky\world0;assets\minecraft\optifine\sky\world0

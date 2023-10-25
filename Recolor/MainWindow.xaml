@@ -30,7 +30,7 @@
         <ListView Name="lv_defaultItems" Margin="156,84,718,20" Grid.Column="1">
         </ListView>
         <Label Grid.Column="1" Content="Default Items:" HorizontalAlignment="Left" Margin="156,55,0,0" VerticalAlignment="Top"/>
-        <ListView Name="lv_editedItems" Margin="586,84,250,19" Grid.Column="1">
+        <ListView Name="lv_editedItems" Margin="586,84,278,19" Grid.Column="1">
         </ListView>
         <Label Grid.Column="1" Content="Edited Items:" HorizontalAlignment="Left" Margin="586,49,0,0" VerticalAlignment="Top"/>
         <Button Grid.Column="1" Content="Recolor" HorizontalAlignment="Left" Margin="963,18,0,0" VerticalAlignment="Top" Height="25" Width="78" Click="Button_Click_Recolor"/>
