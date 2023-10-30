@@ -1,0 +1,6 @@
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\Recolor.exe
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\items.csv
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\Recolor.dll
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\Recolor.deps.json
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\Recolor.runtimeconfig.json
+C:\Privat\coding\C#\Recolor\Recolor\bin\Release\net7.0-windows\app.publish\Recolor.pdb

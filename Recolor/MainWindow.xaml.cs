@@ -271,8 +271,8 @@ namespace Recolor
                         var imageToAdd = new Image
                         {
                             Source = image,
-                            Width = 100,
-                            Height = 100
+                            Width = 128,
+                            Height = 128
 
                         };
                         lv_defaultItems.Items.Add(imageToAdd);
@@ -297,8 +297,8 @@ namespace Recolor
                         var imageToAdd = new Image
                         {
                             Source = image,
-                            Width = 100,
-                            Height = 100
+                            Width = 128,
+                            Height = 128
 
                         };
 
@@ -327,6 +327,7 @@ namespace Recolor
             string folderToPick = "";
             if (config.version == "1.8")
             {
+               
                 folderToPick = "\\" + item.folder18 + "\\" + item.name;
             }
             else //1.20

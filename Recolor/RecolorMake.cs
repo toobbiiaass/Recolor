@@ -37,7 +37,7 @@ namespace Recolor
                         byte green = *(byte*)(modifiedImage.BackBuffer + offset + 1);
                         byte blue = *(byte*)(modifiedImage.BackBuffer + offset);
 
-                        if (red != green || red != blue)
+                        if (red != green && red != blue)
                         {
                             bool isAllowed = false;
                             if (isBrownColorFilterOn)
@@ -53,6 +53,7 @@ namespace Recolor
                             }
                             if (isAllowed)
                             {
+
                                 if (alpha == 255)
                                 {
                                     double L = 0.5 * red + 0.5 * green + 0.5 * blue;
@@ -75,29 +76,25 @@ namespace Recolor
 
             modifiedImage.AddDirtyRect(new Int32Rect(0, 0, width, height));
             modifiedImage.Unlock();
-             BitmapImage bitmapImage = new BitmapImage();
-             using (MemoryStream stream = new MemoryStream())
-             {
-                 PngBitmapEncoder encoder = new PngBitmapEncoder();
-                 encoder.Frames.Add(BitmapFrame.Create(modifiedImage));
-                 encoder.Save(stream);
-                 bitmapImage.BeginInit();
-                 bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                 bitmapImage.StreamSource = stream;
-                 bitmapImage.EndInit();
+            BitmapImage bitmapImage = new BitmapImage();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(modifiedImage));
+                encoder.Save(stream);
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = stream;
+                bitmapImage.EndInit();
                 bitmapImage.Freeze();
-             }
-          
+            }
+
             return bitmapImage;
         }
 
         public double ReplaceIfTooHigh(double number)
         {
-            if (number > 255)
-            {
-                number = 255;
-            }
-            return number;
+            return Math.Max(0, Math.Min(255, number));
         }
 
         public bool HasBrownInRange(byte r, byte g, byte b)
