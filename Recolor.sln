@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recolor", "Recolor\Recolor.csproj", "{EB07A348-8FDF-4860-9D03-A7A1666F1922}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "RecolorSetup", "RecolorSetup\RecolorSetup.vdproj", "{6C9087BE-9D71-49A6-914C-5BAB75D5A951}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupRecolorTool", "SetupRecolorTool\SetupRecolorTool.vdproj", "{802BB570-B68D-49A9-8176-F2A7C78E7FAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{EB07A348-8FDF-4860-9D03-A7A1666F1922}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB07A348-8FDF-4860-9D03-A7A1666F1922}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB07A348-8FDF-4860-9D03-A7A1666F1922}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C9087BE-9D71-49A6-914C-5BAB75D5A951}.Debug|Any CPU.ActiveCfg = Debug
-		{6C9087BE-9D71-49A6-914C-5BAB75D5A951}.Release|Any CPU.ActiveCfg = Release
+		{802BB570-B68D-49A9-8176-F2A7C78E7FAD}.Debug|Any CPU.ActiveCfg = Debug
+		{802BB570-B68D-49A9-8176-F2A7C78E7FAD}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

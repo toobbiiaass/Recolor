@@ -9,7 +9,7 @@ namespace Recolor
 {
     class RecolorMake
     {
-        public BitmapImage RecolorItem(string path, int redy, int greeny, int bluey, bool isBrownColorFilterOn)
+        public BitmapImage RecolorItem(string path, int redy, int greeny, int bluey, bool isBrownColorFilterOn, byte setAlpha)
         {
             if (!File.Exists(path))
             {
@@ -54,7 +54,7 @@ namespace Recolor
                             if (isAllowed)
                             {
 
-                                if (alpha == 255)
+                                if (alpha <= 255 && alpha >= 100)
                                 {
                                     double L = 0.5 * red + 0.5 * green + 0.5 * blue;
                                     double newR = redy * L / 255;
@@ -67,6 +67,7 @@ namespace Recolor
                                     *(byte*)(modifiedImage.BackBuffer + offset + 2) = (byte)newR;
                                     *(byte*)(modifiedImage.BackBuffer + offset + 1) = (byte)newG;
                                     *(byte*)(modifiedImage.BackBuffer + offset) = (byte)newB;
+                                    *(byte*)(modifiedImage.BackBuffer + offset + 3) = setAlpha;
                                 }
                             }
                         }
@@ -91,6 +92,7 @@ namespace Recolor
 
             return bitmapImage;
         }
+
 
         public double ReplaceIfTooHigh(double number)
         {

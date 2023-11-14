@@ -25,8 +25,9 @@
         <Label Content="R" HorizontalAlignment="Left" Margin="4,120,0,0" VerticalAlignment="Top" Width="20" Grid.ColumnSpan="2"/>
         <Label Content="G" HorizontalAlignment="Left" Margin="4,143,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <Label Content="B" HorizontalAlignment="Left" Margin="5,169,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <CheckBox Name="ch_browncolorFilter" Content="Browncolor filter" IsChecked="True"  HorizontalAlignment="Left" Margin="7,205,0,0" VerticalAlignment="Top" Height="22" Width="115" Grid.ColumnSpan="2" Click="IsBrownColorFilter" Grid.Column="1"/>
-        <ListView Name="lst_View_ItemsSelect" Grid.ColumnSpan="3" Margin="0,232,1014,0">
+        <CheckBox Name="ch_browncolorFilter" Content="Browncolor filter" IsChecked="True"  HorizontalAlignment="Left" Margin="7,205,0,0" VerticalAlignment="Top" Height="22" Width="115" Grid.ColumnSpan="2" Click="IsBrownColorFilter" Grid.Column="1" />
+
+        <ListView Name="lst_View_ItemsSelect" Grid.ColumnSpan="3" Margin="0,305,1014,0">
         </ListView>
         <ListView Name="lv_defaultItems" Margin="156,84,698,20" Grid.Column="2">
         </ListView>
@@ -37,6 +38,8 @@
         <Button Grid.Column="2" Content="Recolor" HorizontalAlignment="Left" Margin="963,18,0,0" VerticalAlignment="Top" Height="25" Width="78" Click="Button_Click_Recolor"/>
         <Button Grid.Column="2" Content="Show recolor Example" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" Height="26" Width="169" Click="Button_Click_RecolorExample"/>
         <Label Grid.Column="2" Content="coded by vuacy" HorizontalAlignment="Left" Margin="969,737,0,0" VerticalAlignment="Top" Height="28" Width="93"/>
+        <Slider Grid.Column="1" Name="sld_alpha" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="6,232,0,0" VerticalAlignment="Top" Width="120" Minimum="0" Maximum="255" Value="255" ValueChanged="Slider_ValueChanged"/>
+        <Label Grid.Column="2" Content="Transparency" HorizontalAlignment="Left" Margin="27,228,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

@@ -125,7 +125,8 @@ namespace Recolor
         }
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            colorToShow.Background = new SolidColorBrush(Color.FromRgb((byte)sl_red.Value, (byte)sl_green.Value, (byte)sl_blue.Value));
+            colorToShow.Background = new SolidColorBrush(Color.FromArgb(config.transparency, (byte)sl_red.Value, (byte)sl_green.Value, (byte)sl_blue.Value));
+            config.transparency = (byte)sld_alpha.Value;
             config.red = (int)sl_red.Value;
             config.green = (int)sl_green.Value;
             config.blue = (int)sl_blue.Value;
@@ -201,6 +202,7 @@ namespace Recolor
             {
                 config.isBrownColorFilterOn = false;
             }
+
         }
 
         private void Button_Click_Recolor(object sender, RoutedEventArgs e)
@@ -217,8 +219,11 @@ namespace Recolor
                 {
                     BitmapImage recoloredImage = null;
                     if (item.isToRecolor)
-                    {  
-                          recoloredImage = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn);
+                    {
+                        //TODO ADD  double brightnessFactor, double intensityFactor -> chatgpt
+                        // TODO ADD 2 Slidbars
+                        // ADD ADD RGB each a label to show the number
+                        recoloredImage = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn, config.transparency);
                        
                     }
                     else
@@ -292,7 +297,7 @@ namespace Recolor
                     if (item.isToRecolor)
                     {
                         RecolorMake recolor = new RecolorMake();
-                        var image = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn);
+                        var image = recolor.RecolorItem(config.pathToSave + folderToPick, config.red, config.green, config.blue, config.isBrownColorFilterOn, config.transparency);
                         if (image == null) break;
                         var imageToAdd = new Image
                         {
@@ -336,6 +341,7 @@ namespace Recolor
             }
             return folderToPick;
         }
+
     }
 
 }

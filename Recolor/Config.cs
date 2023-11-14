@@ -14,6 +14,7 @@ namespace Recolor
         public int green { get; set; } = 0;
         public int blue { get; set; } = 0;
         public bool isBrownColorFilterOn { get; set; } = true;
+        public byte transparency { get; set; } = 0;
         public List<string> whichCheckboxesOn { get; set; } = new List<string>();
         public string version { get; set; } = "-1";
     }
